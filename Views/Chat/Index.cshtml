@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "IT HelpDesk ChatBot";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="chat-container">
+    <h1>IT HelpDesk ChatBot</h1>
+    <div class="chat-box" id="chat-window">
+        <p><strong>Bot:</strong> Please select an issue from the dropdown to get started.</p>
+    </div>
+
+    <div>
+        <label for="issue-select">Select an issue:</label>
+        <select id="issue-select">
+            <option value="">--Select an issue--</option>
+            <option value="wifi not working">Wifi not working</option>
+            <option value="password reset">Password reset</option>
+        </select>
+        <button id="start-button">Start</button>
+    </div>
+
+    <div id="os-options" class="hidden">
+        <div class="os-buttons">
+            <button onclick="selectOS('Android Wireless')">Android Wireless</button>
+            <button onclick="selectOS('Apple iOS Wireless')">Apple iOS Wireless</button>
+            <button onclick="selectOS('Mac OSX Wireless')">Mac OSX Wireless</button>
+            <button onclick="selectOS('Eduroam - For Visitors')">Eduroam - For Visitors</button>
+            <button onclick="selectOS('Intel Proset Configuration')">Intel Proset Configuration</button>
+            <button onclick="selectOS('Ubuntu Wireless')">Ubuntu Wireless</button>
+            <button onclick="selectOS('Windows 10 Wireless')">Windows 10 Wireless</button>
+            <button onclick="selectOS('Windows 11 Wireless')">Windows 11 Wireless</button>
+        </div>
+    </div>
+
+    <div>
+        <button id="next-button">Next Step</button>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/script.js"></script>
+}
