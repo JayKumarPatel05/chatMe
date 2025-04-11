@@ -1,0 +1,13 @@
+﻿{
+  "Wifi not working": [
+    "Step 1: Is your Wi-Fi turned ON?",
+    "Step 2: Can you see the 'LakeheadU' Wi-Fi network in the list?",
+    "Step 3: Are you using your Lakehead username and password to sign in?",
+    "Step 4: Please select your Operating System:"
+  ],
+  "Password reset": [
+    "Step 1: Try logging in at myInfo.",
+    "Step 2: Click on 'Forgot Password' and follow the instructions.",
+    "Step 3: Still having trouble? Contact the helpdesk."
+  ]
+}

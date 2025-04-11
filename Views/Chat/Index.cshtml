@@ -3,39 +3,51 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="chat-container">
-    <h1>IT HelpDesk ChatBot</h1>
-    <div class="chat-box" id="chat-window">
+<main class="chat-container" role="main" aria-labelledby="chatbot-title">
+    <h1 id="chatbot-title">IT HelpDesk ChatBot</h1>
+
+    <section class="chat-box" id="chat-window" aria-live="polite" aria-atomic="true">
         <p><strong>Bot:</strong> Please select an issue from the dropdown to get started.</p>
-    </div>
+    </section>
 
-    <div>
-        <label for="issue-select">Select an issue:</label>
-        <select id="issue-select">
+    <section aria-labelledby="issue-label">
+        <label for="issue-select" id="issue-label" class="visually-hidden">Select an issue</label>
+        <select id="issue-select" aria-label="Select an IT issue">
             <option value="">--Select an issue--</option>
-            <option value="wifi not working">Wifi not working</option>
-            <option value="password reset">Password reset</option>
+            <option value="Wifi not working">Wi-Fi not working</option>
+            <option value="Password reset">Password reset</option>
         </select>
-        <button id="start-button">Start</button>
-    </div>
+        <button id="start-button" aria-label="Start troubleshooting">Start</button>
+    </section>
 
-    <div id="os-options" class="hidden">
+    <section id="os-options" class="hidden" aria-label="Operating system help links">
         <div class="os-buttons">
-            <button onclick="selectOS('Android Wireless')">Android Wireless</button>
-            <button onclick="selectOS('Apple iOS Wireless')">Apple iOS Wireless</button>
-            <button onclick="selectOS('Mac OSX Wireless')">Mac OSX Wireless</button>
-            <button onclick="selectOS('Eduroam - For Visitors')">Eduroam - For Visitors</button>
-            <button onclick="selectOS('Intel Proset Configuration')">Intel Proset Configuration</button>
-            <button onclick="selectOS('Ubuntu Wireless')">Ubuntu Wireless</button>
-            <button onclick="selectOS('Windows 10 Wireless')">Windows 10 Wireless</button>
-            <button onclick="selectOS('Windows 11 Wireless')">Windows 11 Wireless</button>
+            <button onclick="window.open('https://www.lakeheadu.ca/faculty-and-staff/departments/services/helpdesk/phones/networking/wireless/android_wireless', '_blank')">Android Wireless</button>
+            <button onclick="window.open('https://www.lakeheadu.ca/faculty-and-staff/departments/services/helpdesk/phones/networking/wireless/apple_ios_wireless', '_blank')">Apple iOS Wireless</button>
+            <button onclick="window.open('https://www.lakeheadu.ca/faculty-and-staff/departments/services/helpdesk/phones/networking/wireless/mac-os-wireless', '_blank')">Mac OSX Wireless</button>
+            <button onclick="window.open('https://www.lakeheadu.ca/faculty-and-staff/departments/services/helpdesk/phones/networking/wireless/eduroam', '_blank')">Eduroam - For Visitors</button>
+            <button onclick="window.open('https://www.lakeheadu.ca/faculty-and-staff/departments/services/helpdesk/phones/networking/wireless/intel_proset_configuration', '_blank')">Intel Proset Configuration</button>
+            <button onclick="window.open('https://www.lakeheadu.ca/faculty-and-staff/departments/services/helpdesk/phones/networking/wireless/ubuntu_wireless', '_blank')">Ubuntu Wireless</button>
+            <button onclick="window.open('https://www.lakeheadu.ca/faculty-and-staff/departments/services/helpdesk/phones/networking/wireless/windows-10-wireless', '_blank')">Windows 10 Wireless</button>
+            <button onclick="window.open('https://www.lakeheadu.ca/faculty-and-staff/departments/services/helpdesk/phones/networking/wireless/windows-11-wireless', '_blank')">Windows 11 Wireless</button>
         </div>
-    </div>
 
-    <div>
-        <button id="next-button">Next Step</button>
-    </div>
-</div>
+        <div id="final-help" class="hidden final-help" aria-live="polite">
+            <p>If you're still unable to connect, please choose one of the options below for further assistance:</p>
+            <div class="help-options">
+                <button id="visit-btn">Visit Room LI 1015</button>
+                <button id="ticket-btn">Create a Ticket</button>
+            </div>
+        </div>
+
+
+
+    </section>
+
+    <section>
+        <button id="next-button" aria-label="Go to next troubleshooting step">Next Step</button>
+    </section>
+</main>
 
 @section Scripts {
     <script src="~/js/script.js"></script>
