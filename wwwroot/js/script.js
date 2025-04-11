@@ -52,7 +52,7 @@ function displayStep() {
             );
 
             if (choice) {
-                // OK clicked – open ticket page
+                // OK clicked – open ticket page(S)
                 window.open('https://rt.lakeheadu.ca/SelfService/CreateTicketInQueue.html', '_blank');
                 chatWindow.innerHTML += `
                                             <p><strong>Bot:</strong> You chose to create a support ticket. Redirecting you to the ticket page...</p>
