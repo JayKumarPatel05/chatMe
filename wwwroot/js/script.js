@@ -11,7 +11,7 @@ document.getElementById('start-button').addEventListener('click', async function
     }
 
     // Load the JSON file
-    const response = await fetch('/js/issues.json');
+    const response = await fetch('/js/issues.json?v=' + new Date().getTime());
     issueData = await response.json();
 
     if (!issueData[selectedIssue]) {
