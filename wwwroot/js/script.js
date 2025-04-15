@@ -10,8 +10,7 @@ document.getElementById('start-button').addEventListener('click', async function
         return;
     }
 
-    // Load the JSON file
-    const response = await fetch('/js/issues.json');
+    const response = await fetch('/js/issues.json?v=' + new Date().getTime());
     issueData = await response.json();
 
     if (!issueData[selectedIssue]) {
@@ -20,7 +19,6 @@ document.getElementById('start-button').addEventListener('click', async function
     }
 
     currentStep = 0;
-    document.getElementById('chat-window').innerHTML = '';
     displayStep();
 });
 
@@ -38,55 +36,108 @@ function displayStep() {
 
     if (currentStep < steps.length) {
         const step = steps[currentStep];
-        chatWindow.innerHTML += `<p><strong>Bot:</strong> ${step}</p>`;
 
-        // Show OS options on specific step
-        if (step.toLowerCase().includes("select your operating system")) {
+        const botMsg = document.createElement('p');
+        botMsg.innerHTML = `<strong>Bot:</strong> ${step}`;
+        chatWindow.appendChild(botMsg);
+
+        // Show OS options for Wi-Fi Step 4 (index 3)
+        if (selectedIssue === "Wifi not working" && currentStep === 3) {
             document.getElementById('os-options').classList.remove('hidden');
         }
-    } else {
-        // Final support step after all guidance is done
-        if (selectedIssue === "Wifi not working") {
-            const choice = window.confirm(
-                "Are you still unable to connect?\n\nClick OK to create a support ticket, or Cancel to visit us in person at Room LI 1015."
-            );
 
-            if (choice) {
-                // OK clicked – open ticket page(S)
-                window.open('https://rt.lakeheadu.ca/SelfService/CreateTicketInQueue.html', '_blank');
-                chatWindow.innerHTML += `
-                                            <p><strong>Bot:</strong> You chose to create a support ticket. Redirecting you to the ticket page...</p>
-                                            <div role="note" aria-label="Ticket Submission Note" class="ticket-note">
-                                                <p><strong>📌 Important:</strong> Please submit your request in the <strong>Helpdesk</strong> queue when filling out the ticket.</p>
-                                                <p><strong>🚫 Do not create multiple tickets</strong> for the same issue — this can delay our response time.</p>
-                                            </div>
-                                        `
-                ;
-            } else {
-                // Cancel clicked – show detailed visit info
-                chatWindow.innerHTML += `
-                    <p><strong>Bot:</strong> You can visit us in person for assistance:</p>
-                    <ul>
-                        <li><strong>Location:</strong> Chancellor Paterson Library, Room LI 1015 (Main Floor)</li>
-                        <li><strong>Hours:</strong> Monday to Friday, 8:00 AM – 4:00 PM</li>
-                        <li><strong>Phone:</strong> 807-346-7777</li>
-                    </ul>
+        // For Printing Services, show "Need more help?" and buttons in Step 5
+        if (selectedIssue === "Printing services" && currentStep === steps.length - 1 && step === "Step 5: If you're still unable to print, please choose one of the options below for further assistance:") {
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = "help-options";
+
+            const visitBtn = document.createElement('button');
+            visitBtn.id = "visit-btn";
+            visitBtn.textContent = "Visit Room LI 1015";
+
+            const ticketBtn = document.createElement('button');
+            ticketBtn.id = "ticket-btn";
+            ticketBtn.textContent = "Create a Ticket";
+
+            buttonContainer.appendChild(visitBtn);
+            buttonContainer.appendChild(ticketBtn);
+            chatWindow.appendChild(buttonContainer);
+
+            // Event listener for Visit button
+            visitBtn.addEventListener('click', function () {
+                const visitInfo = document.createElement('div');
+                visitInfo.innerHTML = `You can visit us in person for assistance: <br>
+                                       Location: Chancellor Paterson Library, Room LI 1015 (Main Floor) <br>
+                                       Hours: Monday to Friday, 8:00 AM – 4:00 PM <br>
+                                       Phone: 807-346-7777`;
+                chatWindow.appendChild(visitInfo);
+            });
+
+            // Event listener for Ticket button
+            ticketBtn.addEventListener('click', function () {
+                const ticketInfo = document.createElement('div');
+                ticketInfo.innerHTML = `
+                    <p><strong>Bot:</strong> You chose to create a support ticket. Redirecting you to the ticket page in 5 seconds...</p>
+                    <div role="note" aria-label="Ticket Submission Note" class="ticket-note">
+                        <p><strong>📌 Important:</strong> Please submit your request in the <strong>Helpdesk</strong> queue when filling out the ticket.</p>
+                        <p><strong>🚫 Do not create multiple tickets</strong> for the same issue — this can delay our response time.</p>
+                    </div>
                 `;
-            }
-        } else {
-            chatWindow.innerHTML += `<p><strong>Bot:</strong> End of steps.</p>`;
+                chatWindow.appendChild(ticketInfo);
+
+                // Wait 5 seconds before opening the ticket page
+                setTimeout(() => {
+                    window.open('https://rt.lakeheadu.ca/SelfService/CreateTicketInQueue.html', '_blank');
+                }, 5000);
+            });
+
+        }
+
+        // If this is the last step for Wi-Fi, show "Need more help?" message and the buttons
+        if (selectedIssue === "Wifi not working" && currentStep === steps.length - 1 && step === "Step 5: Need more help?") {
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = "help-options";
+
+            const visitBtn = document.createElement('button');
+            visitBtn.id = "visit-btn";
+            visitBtn.textContent = "Visit Room LI 1015";
+
+            const ticketBtn = document.createElement('button');
+            ticketBtn.id = "ticket-btn";
+            ticketBtn.textContent = "Create a Ticket";
+
+            buttonContainer.appendChild(visitBtn);
+            buttonContainer.appendChild(ticketBtn);
+            chatWindow.appendChild(buttonContainer);
+
+            // Event listener for Visit button
+            visitBtn.addEventListener('click', function () {
+                const visitInfo = document.createElement('div');
+                visitInfo.innerHTML = `You can visit us in person for assistance: <br>
+                                       Location: Chancellor Paterson Library, Room LI 1015 (Main Floor) <br>
+                                       Hours: Monday to Friday, 8:00 AM – 4:00 PM <br>
+                                       Phone: 807-346-7777`;
+                chatWindow.appendChild(visitInfo);
+            });
+
+            // Event listener for Ticket button
+            ticketBtn.addEventListener('click', function () {
+                const ticketInfo = document.createElement('div');
+                ticketInfo.innerHTML = `
+                    <p><strong>Bot:</strong> You chose to create a support ticket. Redirecting you to the ticket page in 5 seconds...</p>
+                    <div role="note" aria-label="Ticket Submission Note" class="ticket-note">
+                        <p><strong>📌 Important:</strong> Please submit your request in the <strong>Helpdesk</strong> queue when filling out the ticket.</p>
+                        <p><strong>🚫 Do not create multiple tickets</strong> for the same issue — this can delay our response time.</p>
+                    </div>
+                `;
+                chatWindow.appendChild(ticketInfo);
+
+                // Wait 5 seconds before opening the ticket page
+                setTimeout(() => {
+                    window.open('https://rt.lakeheadu.ca/SelfService/CreateTicketInQueue.html', '_blank');
+                }, 5000);
+            });
+
         }
     }
 }
-
-
-
-
-// Event listeners for the new options (ticket creation or visiting the help desk)
-document.getElementById('visit-btn').addEventListener('click', function () {
-    window.open('https://www.lakeheadu.ca/faculty-and-staff/departments/services/helpdesk/contact', '_blank');
-});
-
-document.getElementById('ticket-btn').addEventListener('click', function () {
-    window.open('https://www.lakeheadu.ca/faculty-and-staff/departments/services/helpdesk/ticket-creation', '_blank');
-});
