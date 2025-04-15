@@ -1,11 +1,12 @@
 ﻿{
-  "Wifi not working": [ 
+  "Wifi not working": [
     "Step 1: Is your Wi-Fi turned ON?",
     "Step 2: Can you see the 'LakeheadU' Wi-Fi network in the list?",
     "Step 3: Are you using your Lakehead username and password to sign in?",
-    "Step 4: Please select your Operating System:"
+    "Step 4: Please select your Operating System:",
+    "Step 5: Need more help?"
   ],
-"Printing services": [
+  "Printing services": [
     "Step 1: Do you have a positive balance in your PaperCut account? Login here: https://tbpapercut.lakeheadu.ca:9192/user",
     "Step 2: Set or reset your PIN here: https://www.lakeheadu.ca/faculty-and-staff/departments/services/helpdesk/printing/printing-pin",
     "Step 3: You can add funds via credit card or in person. Instructions here: https://www.lakeheadu.ca/faculty-and-staff/departments/services/helpdesk/printing",
