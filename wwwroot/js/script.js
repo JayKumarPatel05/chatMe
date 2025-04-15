@@ -38,7 +38,8 @@ function displayStep() {
         const step = steps[currentStep];
 
         const botMsg = document.createElement('p');
-        botMsg.innerHTML = `<strong>Bot:</strong> ${step}`;
+        const linkedStep = step.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+        botMsg.innerHTML = `<strong>Bot:</strong> ${linkedStep}`;
         chatWindow.appendChild(botMsg);
 
         // Show OS options for Wi-Fi Step 4 (index 3)
