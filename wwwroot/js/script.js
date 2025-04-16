@@ -182,6 +182,22 @@ function showVpnSteps(os) {
         }
         chatWindow.appendChild(botMsg);
     });
+    // Show help options after OS steps are displayed
+    showHelpOptions();
+}
+
+
+function handleIssue(step) {
+    const chatWindow = document.getElementById('chat-window');
+
+    if (currentStep < issueData[selectedIssue].length) {
+        const botMsg = document.createElement('p');
+        botMsg.innerHTML = `<strong>Bot:</strong> ${issueData[selectedIssue][currentStep]}`;
+        chatWindow.appendChild(botMsg);
+        currentStep++;
+    } else {
+        showHelpOptions();
+    }
 }
 
 
@@ -192,7 +208,6 @@ function renderDefaultStep(step) {
     botMsg.innerHTML = `<strong>Bot:</strong> ${linkedStep}`;
     chatWindow.appendChild(botMsg);
 }
-
 
 
 
