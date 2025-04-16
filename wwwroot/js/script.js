@@ -31,30 +31,31 @@ function displayStep() {
     const chatWindow = document.getElementById('chat-window');
     const steps = issueData[selectedIssue];
 
-    // Always hide OS buttons unless shown
     document.getElementById('os-options').classList.add('hidden');
 
     if (currentStep < steps.length) {
         const step = steps[currentStep];
-        const botMsg = document.createElement('p');
-        const linkedStep = step.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
-        botMsg.innerHTML = `<strong>Bot:</strong> ${linkedStep}`;
-        chatWindow.appendChild(botMsg);
 
-        // Dispatch support logic to appropriate handler
+        // Custom logic per issue
         switch (selectedIssue) {
             case "Wifi not working":
+                renderDefaultStep(step); // render step first
                 handleWifiSupport(step);
                 break;
             case "Printing services":
+                renderDefaultStep(step);
                 handlePrintSupport(step);
                 break;
             case "VPN Services":
-                handleVpnSupport(step);
+                handleVpnSupport(step); // Don't render default here
                 break;
+            default:
+                renderDefaultStep(step); // Fallback
         }
     }
 }
+
+
 function handleWifiSupport(step) {
     if (currentStep === 3) {
         document.getElementById('os-options').classList.remove('hidden');
@@ -72,12 +73,128 @@ function handlePrintSupport(step) {
 }
 
 function handleVpnSupport(step) {
-    // You can add custom logic for VPN support here in future.
-    // For now, just reuse the Help Options if the last step includes something similar.
+    const chatWindow = document.getElementById('chat-window');
+
+    if (currentStep === 0) {
+        const botIntro = document.createElement('p');
+        botIntro.innerHTML = `<strong>Bot:</strong> Step 1: Download FortiClient VPN for your device:`;
+        chatWindow.appendChild(botIntro);
+
+        const buttonContainer = document.createElement('div');
+        buttonContainer.classList.add('vpn-grid');
+
+        const platforms = [
+            { name: "Windows", url: "https://links.fortinet.com/forticlient/win/vpnagent", icon: "/images/windows.jpg", key: "windows" },
+            { name: "Mac", url: "https://links.fortinet.com/forticlient/mac/vpnagent", icon: "/images/mac.jpg", key: "mac" },
+            { name: "Android", url: "https://play.google.com/store/apps/details?id=com.fortinet.forticlient_vpn", icon: "/images/android.jpg", key: "android" },
+            { name: "iOS", url: "https://apps.apple.com/us/app/forticlient-vpn/id1475674905", icon: "/images/ios.jpg", key: "ios" },
+            { name: "Linux (.RPM)", url: "https://links.fortinet.com/forticlient/rhel/vpnagent", icon: "/images/rpm.jpg" },
+            { name: "Linux (.DEB)", url: "https://links.fortinet.com/forticlient/deb/vpnagent", icon: "/images/deb.jpg" },
+        ];
+
+        platforms.forEach(platform => {
+            const link = document.createElement('a');
+            link.href = platform.url;
+            link.target = "_blank";
+            link.className = "vpn-btn";
+            link.innerHTML = `<img src="${platform.icon}" alt="${platform.name} logo" class="vpn-logo"> ${platform.name}`;
+
+            // If steps exist for this platform, also attach click handler
+            if (platform.key) {
+                link.addEventListener('click', () => showVpnSteps(platform.key));
+            }
+
+            buttonContainer.appendChild(link);
+        });
+
+        chatWindow.appendChild(buttonContainer);
+        return; // Skip default step rendering
+    }
+
+    // Final step: show help options if needed
     if (currentStep === issueData[selectedIssue].length - 1 && step.toLowerCase().includes("still need help")) {
         showHelpOptions();
     }
 }
+
+
+function showVpnSteps(os) {
+    const chatWindow = document.getElementById('chat-window');
+
+    const steps = {
+        windows: [
+            "Step 1: Click on FortiClient desktop icon to launch software.",
+            "Step 2: Click on \"Config VPN\" to add a VPN connection.",
+            "Step 3: Select \"SSL-VPN\" at the top of the box.",
+            "Step 4: Enter the settings in each field as shown below and click apply:",
+            "• Connection Name: LU SSL",
+            "• Description: (Optional)",
+            "• Remote Gateway: vpn.lakeheadu.ca",
+            "• Check the box beside 'Customize Port'",
+            "• Port Number: 10443",
+            "Step 5: Enter your Lakehead Username & Password and click \"Connect\".",
+            "Note: For version 7, if you receive a security alert saying 'a secure connection cannot be verified', click \"Yes\" to continue."
+        ],
+        mac: [
+            "Step 1: Click on FortiClient desktop icon to launch software.",
+            "Step 2: Click on \"Config VPN\" to add a VPN connection.",
+            "Step 3: Select \"SSL-VPN\" at the top of the box.",
+            "Step 4: Enter the settings in each field as shown below and click apply:",
+            "• Connection Name: LU SSL",
+            "• Description: (Optional)",
+            "• Remote Gateway: vpn.lakeheadu.ca",
+            "• Check the box beside 'Customize Port'",
+            "• Port Number: 10443",
+            "Step 5: Enter your Lakehead Username & Password and click \"Connect\".",
+            "Note: For version 7, if you receive a security alert saying 'a secure connection cannot be verified', click \"Yes\" to continue."
+        ],
+        android: [
+            "Step 1: Tap FortiClient to launch app.",
+            "Step 2: Tap 'New VPN' on the lower left corner.",
+            "Step 3: Enter VPN name, select SSL VPN, then tap 'Create'.",
+            "Step 4: Tap 'Server Settings'.",
+            "Step 5: Enter the following setting:",
+            "• FortiGate Server Address: vpn.lakeheadu.ca"
+        ],
+        ios: [
+            "Step 1: Download the FortiClient app from the App Store.",
+            "Step 2: When you first open the app, tap 'I accept'.",
+            "Step 3: On the next screen, tap 'OK, got it'.",
+            "Step 4: When prompted, tap 'Allow' to grant permission.",
+            "Step 5: Enter your iOS device passcode.",
+            "Step 6: Tap 'Select connection >'.",
+            "Step 7: Enter the following VPN settings:",
+            "• Name: LakeheadU",
+            "• Host: 69.39.0.1",
+            "• Port: 10443",
+            "• Username: Your Lakehead Username",
+            "Step 8: Tap 'OK'.",
+            "Step 9: Enter your Username & Password and tap 'OK' to connect."
+        ]
+    };
+
+    steps[os]?.forEach(text => {
+        const botMsg = document.createElement('p');
+        if (text.trim().startsWith("•")) {
+            botMsg.innerHTML = `&emsp;${text}`; // indent without 'Bot:'
+        } else {
+            botMsg.innerHTML = `<strong>Bot:</strong> ${text}`;
+        }
+        chatWindow.appendChild(botMsg);
+    });
+}
+
+
+function renderDefaultStep(step) {
+    const chatWindow = document.getElementById('chat-window');
+    const botMsg = document.createElement('p');
+    const linkedStep = step.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+    botMsg.innerHTML = `<strong>Bot:</strong> ${linkedStep}`;
+    chatWindow.appendChild(botMsg);
+}
+
+
+
 
 function showHelpOptions() {
     const chatWindow = document.getElementById('chat-window');

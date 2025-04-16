@@ -12,5 +12,11 @@
     "Step 3: You can add funds via credit card or in person. Instructions here: https://www.lakeheadu.ca/faculty-and-staff/departments/services/helpdesk/printing",
     "Step 4: Please visit the link provided for instructions on configuring printing from your device: https://www.lakeheadu.ca/faculty-and-staff/departments/services/helpdesk/printing/mobile-print",
     "Step 5: If you're still unable to print, please choose one of the options below for further assistance:"
+  ],
+  "VPN Services": [
+    "Step 1: Download FortiClient VPN for your device:\n• [Windows](https://links.fortinet.com/forticlient/win/vpnagent)\n• [Mac](https://links.fortinet.com/forticlient/mac/vpnagent)\n• [Android](https://play.google.com/store/apps/details?id=com.fortinet.forticlient_vpn)\n• [iOS](https://apps.apple.com/us/app/forticlient-vpn/id1475674905)\n• [Linux (.RPM)](https://links.fortinet.com/forticlient/rhel/vpnagent)\n• [Linux (.DEB)](https://links.fortinet.com/forticlient/deb/vpnagent)",
+    "Step 2: Follow the configuration guide available on the university website.",
+    "Step 3: Still need help? Use one of the support options below."
   ]
+
 }

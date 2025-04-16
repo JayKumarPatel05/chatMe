@@ -55,10 +55,10 @@ button {
     transition: background-color 0.3s ease;
 }
 
-    button:hover, button:focus {
-        background-color: #005fa3;
-        outline: none;
-    }
+button:hover, button:focus {
+    background-color: #005fa3;
+    outline: none;
+}
 
 .os-buttons {
     display: flex;
@@ -98,9 +98,9 @@ button {
     cursor: pointer;
 }
 
-    .help-options button:hover {
-        background-color: #0056b3;
-    }
+.help-options button:hover {
+    background-color: #0056b3;
+}
 
 .ticket-note {
     background-color: #fff3cd;
@@ -110,4 +110,34 @@ button {
     border-radius: 6px;
     color: #856404;
     font-size: 0.95rem;
+}
+.vpn-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 12px 0;
+}
+
+.vpn-btn {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+    min-width: 180px;
+}
+
+    .vpn-btn:hover {
+        background-color: #eaeaea;
+    }
+
+.vpn-logo {
+    width: 32px; /* make logos larger */
+    height: 32px;
+    margin-right: 12px;
 }
