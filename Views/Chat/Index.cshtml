@@ -16,6 +16,8 @@
             <option value="">--Select an issue--</option>
             <option value="Wifi not working">Wi-Fi not working</option>
             <option value="Printing services">Printing services</option>
+            <option value="VPN Services">VPN Services</option>
+
         </select>
         <button id="start-button" aria-label="Start troubleshooting">Start</button>
     </section>
@@ -43,6 +45,38 @@
 
 
     </section>
+
+
+    <section id="vpn-options" class="hidden" aria-label="VPN Client Downloads">
+        <h2>Download FortiClient VPN</h2>
+        <div class="vpn-buttons">
+            <button onclick="window.open('https://links.fortinet.com/forticlient/win/vpnagent', '_blank')">
+                <img src="~/images/windows-logo.png" alt="Windows logo" />
+                Windows
+            </button>
+            <button onclick="window.open('https://links.fortinet.com/forticlient/mac/vpnagent', '_blank')">
+                <img src="~/images/macos-logo.png" alt="macOS logo" />
+                macOS
+            </button>
+            <button onclick="window.open('https://play.google.com/store/apps/details?id=com.fortinet.forticlient_vpn', '_blank')">
+                <img src="~/images/android-logo.png" alt="Android logo" />
+                Android
+            </button>
+            <button onclick="window.open('https://apps.apple.com/us/app/forticlient-vpn/id1475674905', '_blank')">
+                <img src="~/images/ios-logo.png" alt="iOS logo" />
+                iOS
+            </button>
+            <button onclick="window.open('https://links.fortinet.com/forticlient/rhel/vpnagent', '_blank')">
+                <img src="~/images/linux-rpm-logo.png" alt="Linux RPM logo" />
+                Linux (.rpm)
+            </button>
+            <button onclick="window.open('https://links.fortinet.com/forticlient/deb/vpnagent', '_blank')">
+                <img src="~/images/linux-deb-logo.png" alt="Linux DEB logo" />
+                Linux (.deb)
+            </button>
+        </div>
+    </section>
+
 
     <section>
         <button id="next-button" aria-label="Go to next troubleshooting step">Next Step</button>
